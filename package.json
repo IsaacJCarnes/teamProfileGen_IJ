@@ -1,0 +1,24 @@
+{
+  "name": "teamProfileGen_IJ",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IsaacJCarnes/teamProfileGen_IJ.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/IsaacJCarnes/teamProfileGen_IJ/issues"
+  },
+  "homepage": "https://github.com/IsaacJCarnes/teamProfileGen_IJ#readme",
+  "dependencies": {
+    "inquirer": "^8.2.0",
+    "jest": "^27.3.1"
+  }
+}

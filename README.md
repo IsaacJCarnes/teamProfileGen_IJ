@@ -1,1 +1,0 @@
-# teamProfileGen_IJ
