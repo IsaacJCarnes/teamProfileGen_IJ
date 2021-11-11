@@ -4,30 +4,21 @@ const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 
-let teamMembers = [];
+let teamMembers = []; //Will be filled with employees
 
-function teamToString(){
-    let str = "Role   Name   ID   Email";
-    for(const i of teamMembers){
-        let role = i.getRole();
-        switch (role){
-            case "Manager":
-                str = str.concat(role + ": " + i.getName() + " " + i.getId() + " " + i.getEmail() +"\n");
-                break;
-            case "Engineer":
-                str = str.concat(role + ": " + i.getName() + " " + i.getId() + " " + i.getEmail() + " Github: " + i.getGithub() +"\n");
-                break;
-            case "Intern":
-                str = str.concat(role + ": " + i.getName() + " " + i.getId() + " " + i.getEmail() + " School: " + i.getSchool() +"\n");
-                break;
-        }
-    }
-    console.log(str);
+function writeToFile(fileName, data) {
+    fs.writeFile('./dist/' + fileName, data, err => { //generateMarkdown(data) adds README data
+      if (err) {
+        console.error(err) //Logs error
+        return
+      }
+      //file written successfully
+    })
 }
 
 const addManager = async () => {
     await inquirer
-        .prompt([
+        .prompt([ //Asks for manager info
         {
             type: 'input',
             message: 'What is the team managers name?',
@@ -48,13 +39,13 @@ const addManager = async () => {
             message: 'What is the team managers office number?',
             name: 'officeNum',
         }
-    ]).then((response) => {
+    ]).then((response) => { //Creates and adds new manager to teamMembers array
         teamMembers.push(new Manager(response.name, response.id, response.email, response.officeNum));
     });
 };
 
 const addEngineer = async () => {
-    await inquirer.prompt([
+    await inquirer.prompt([ //Asks for engineer info
         {
             type: 'input',
             message: 'What is the engineers name?',
@@ -75,13 +66,13 @@ const addEngineer = async () => {
             message: 'What is the engineers github?',
             name: 'github',
         }
-    ]).then((response) =>{
+    ]).then((response) =>{ //Creates and adds new engineer
         teamMembers.push(new Engineer(response.name, response.id, response.email, response.github));
     })
 }
 
 const addIntern = async () => {
-    await inquirer.prompt([
+    await inquirer.prompt([ //Asks for intern info
         {
             type: 'input',
             message: 'What is the interns name?',
@@ -102,14 +93,14 @@ const addIntern = async () => {
             message: 'What is the interns school?',
             name: 'school',
         }
-    ]).then((response) =>{
+    ]).then((response) =>{ //Create and add new intern
         teamMembers.push(new Intern(response.name, response.id, response.email, response.school));
     })
 }
 
 let memberOptions = ["Add an engineer", "Add an intern","Done adding team members"];
 const addEmployee = async () => {
-    await inquirer.prompt([
+    await inquirer.prompt([ //Asks which employee will be added
         {
             type: 'list',
             message: 'Would you like to add a member to the team?',
@@ -119,14 +110,14 @@ const addEmployee = async () => {
     ]).then(async (response) =>{
         switch (response.memberType){
             case  memberOptions[0]: // Engineer
-                await addEngineer();
-                await addEmployee();
+                await addEngineer(); // Query data, create and add new engineer
+                await addEmployee(); // Recurse
                 return true;
             case memberOptions[1]: // Intern
-                await addIntern();
-                await addEmployee();
+                await addIntern(); // Query data, create and add new intern
+                await addEmployee(); // Recurse
                 return true;
-            case memberOptions[2]: // No more members
+            case memberOptions[2]: // No more members / base case 
                 return false;          
         }
     });
@@ -136,14 +127,14 @@ function memberProfile(employee){
     let role = employee.getRole();
     let specialStat = "";
     let specialStatData = null;
-    switch (role){
+    switch (role){ //Special data based on role
         case "Manager":
-            specialStat = "Office Number:";
-            specialStatData = null; //No office number method in manager
+            specialStat = ""; //Could be office number
+            specialStatData = ""; //No office number method in manager
             break;
         case "Engineer":
             specialStat = "Github:";
-            specialStatData = `<a href="https://github.com/`+employee.getGithub() + `">` + employee.getGithub()+`<\a>`;          
+            specialStatData = `<a href="https://github.com/`+employee.getGithub() + `">` + employee.getGithub()+`</a>`;          
             break;
         case "Intern":
             specialStat = "School:";
@@ -152,7 +143,7 @@ function memberProfile(employee){
     }
 
     let profile = `
-    <div style="display:flex; flex-direction:column; width: 120px; height: 25%; margin:20px; box-shadow: 1px 1px 3px black;">
+    <div style="display:flex; flex-direction:column; width: 120px; height: 220px; margin:20px; box-shadow: 1px 1px 3px black;">
         <div style="position:relative; background-color: lightsteelblue; height:80px;">
             <h3 style="margin:10px; margin-left: 15px; max-width: 90px;">`+employee.getName()+`</h3>
             <h4 style="margin:10px; margin-left: 25px; max-width: 70px;">`+role+`</h4>
@@ -160,22 +151,12 @@ function memberProfile(employee){
         <p style="margin:4px; font-size: small; font-weight: bold;">ID:</p>
         <p style="margin:4px; font-size: small; max-width: 120px;">`+employee.getId()+`</p>
         <p style="margin:4px; font-size: small; font-weight: bold;">Email:</p>
-        <p style="margin:4px; font-size: small; max-width: 120px;"><a href="`+employee.getEmail() + `">`+employee.getEmail()+`</a></p>
+        <p style="margin:4px; font-size: small; max-width: 120px;"><a href="mailto:`+employee.getEmail() + `">`+employee.getEmail()+`</a></p>
         <p style="margin:4px; font-size: small; font-weight: bold;">`+specialStat+`</p>
         <p style="margin:4px; font-size: small; max-width: 120px;">`+specialStatData+`</p>
     </div>
     `;
     return profile;
-}
-
-function writeToFile(fileName, data) {
-    fs.writeFile('./dist/' + fileName, data, err => { //generateMarkdown(data) adds README data
-      if (err) {
-        console.error(err) //Logs error
-        return
-      }
-      //file written successfully
-    })
 }
 
 function generateMemberProfiles(){
