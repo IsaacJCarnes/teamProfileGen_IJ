@@ -201,7 +201,7 @@ function generateHtml(){
         </section>
     
         <section style="display: flex; flex-wrap:wrap; justify-content: center; align-items: center; margin: 10px; width:50%;">
-            `+generateMemberProfiles()+`
+                `+generateMemberProfiles()+`
         </section>
         
     </body>
