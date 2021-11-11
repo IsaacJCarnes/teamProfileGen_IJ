@@ -18,6 +18,11 @@ describe('Manager', () => {
         expect(Ellen.getEmail()).toBe("Ellen@gmail.com");
     });
 
+    it('should return the email of the manager', () =>{
+        expect(Jim.getOfficeNum()).toBe(101);
+        expect(Ellen.getOfficeNum()).toBe(102);
+    });
+
     it('should return the role of the manager', () =>{
         expect(Jim.getRole()).toBe("Manager");
         expect(Ellen.getRole()).toBe("Manager");

@@ -129,8 +129,8 @@ function memberProfile(employee){
     let specialStatData = null;
     switch (role){ // Special data based on role
         case "Manager":
-            specialStat = ""; // Could be office number
-            specialStatData = ""; // No office number method in manager
+            specialStat = "Office Number:"; // Could be office number
+            specialStatData = employee.getOfficeNum(); // No office number method in manager
             break;
         case "Engineer":
             specialStat = "Github:"; // Github with link
@@ -152,7 +152,7 @@ function memberProfile(employee){
         <p style="margin:4px; font-size: small; font-weight: bold;">ID:</p>
         <p style="margin:4px; font-size: small; max-width: 120px;">`+employee.getId()+`</p>
         <p style="margin:4px; font-size: small; font-weight: bold;">Email:</p>
-        <p style="margin:4px; font-size: small; max-width: 120px;"><a href="mailto:`+employee.getEmail() + `">`+employee.getEmail()+`</a></p>
+        <p style="margin:4px; font-size: small; max-width: 120px; word-wrap: break-word;"><a href="mailto:`+employee.getEmail() + `">`+employee.getEmail()+`</a></p>
         <p style="margin:4px; font-size: small; font-weight: bold;">`+specialStat+`</p>
         <p style="margin:4px; font-size: small; max-width: 120px;">`+specialStatData+`</p>
     </div>
