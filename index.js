@@ -127,21 +127,22 @@ function memberProfile(employee){
     let role = employee.getRole();
     let specialStat = "";
     let specialStatData = null;
-    switch (role){ //Special data based on role
+    switch (role){ // Special data based on role
         case "Manager":
-            specialStat = ""; //Could be office number
-            specialStatData = ""; //No office number method in manager
+            specialStat = ""; // Could be office number
+            specialStatData = ""; // No office number method in manager
             break;
         case "Engineer":
-            specialStat = "Github:";
+            specialStat = "Github:"; // Github with link
             specialStatData = `<a href="https://github.com/`+employee.getGithub() + `">` + employee.getGithub()+`</a>`;          
             break;
         case "Intern":
-            specialStat = "School:";
+            specialStat = "School:"; // School
             specialStatData = employee.getSchool();
             break;
     }
 
+    //Profile skeleton
     let profile = `
     <div style="display:flex; flex-direction:column; width: 120px; height: 220px; margin:20px; box-shadow: 1px 1px 3px black;">
         <div style="position:relative; background-color: lightsteelblue; height:80px;">
@@ -159,7 +160,7 @@ function memberProfile(employee){
     return profile;
 }
 
-function generateMemberProfiles(){
+function generateMemberProfiles(){ // Adds a profile for each member in teamProfiles array
     let teamProfiles = "";
     for(const i of teamMembers){
         teamProfiles = teamProfiles.concat(memberProfile(i));
@@ -167,7 +168,7 @@ function generateMemberProfiles(){
     return teamProfiles;
 }
 
-function generateHtml(){
+function generateHtml(){ // html skeleton
     let teamHtml = `<!DOCTYPE html>
     <html lang="en">
     <head>
