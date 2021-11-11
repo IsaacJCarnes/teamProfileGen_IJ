@@ -11,9 +11,9 @@ The application needs the FileSystem, Inquirer and Jest packages to work correct
 ## Usage
 Type 'node index' to run the application. Then answer the question as they appear in the console. After the questions are done the users 'teamProfiles' html can be retrieved from the dist folder
 
-This video details how to use the application
+Here is a screenshot of the generated webpage
+![Alt text](https://github.com/IsaacJCarnes/teamProfileGen_IJ/blob/main/assets/webScreenshot.png "Website Screenshot")
 
-![Video]( "Usage Video")
 ## Testing
 Type 'npm test' to run the tests on the class files
 

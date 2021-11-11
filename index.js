@@ -129,8 +129,8 @@ function memberProfile(employee){
     let specialStatData = null;
     switch (role){ // Special data based on role
         case "Manager":
-            specialStat = "Office Number:"; // Could be office number
-            specialStatData = employee.getOfficeNum(); // No office number method in manager
+            specialStat = "Office Number:"; // Office Number
+            specialStatData = employee.getOfficeNum();
             break;
         case "Engineer":
             specialStat = "Github:"; // Github with link
