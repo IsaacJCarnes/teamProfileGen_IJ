@@ -133,6 +133,71 @@ const addEmployee = async () => {
     });
 }
 
+function memberHtml(employee){
+    let role = employee.getRole();
+    let specialStat = "";
+    let specialStatData = null;
+    switch (role){
+        case "Manager":
+            specialStat = "Office Number:";
+            specialStatData = null; //No office number method in manager
+            break;
+        case "Engineer":
+            specialStat = "Github:";
+            specialStatData = `<a href="https://github.com/`+employee.getGithub() + `">` + employee.getGithub();          
+            break;
+        case "Intern":
+            specialStat = "School:";
+            specialStatData = employee.getSchool();
+            break;
+    }
+    let starterProfile = `<div style="display:flex; flex-direction:column; width: 120px; height: 25%; margin:20px; box-shadow: 1px 1px 3px black;">
+    <div style="position:relative; background-color: lightsteelblue; height:80px;">
+        <h3 style="margin:10px; margin-left: 15px; max-width: 90px;">`+employee.getName()+`</h3>
+        <h4 style="margin:10px; margin-left: 25px; max-width: 70px;">`+role+`</h4>
+    </div>
+    <p style="margin:4px; font-size: small; font-weight: bold;">ID:</p>
+    <p style="margin:4px; font-size: small; max-width: 120px;">`+employee.getId()+`</p>
+    <p style="margin:4px; font-size: small; font-weight: bold;">Email:</p>
+    <p style="margin:4px; font-size: small; max-width: 120px;"><a href="`+employee.getEmail() + `">`+employee.getEmail()+`</a></p>
+    <p style="margin:4px; font-size: small; font-weight: bold;">`+specialStat+`</p>
+    <p style="margin:4px; font-size: small; max-width: 120px;">`+specialStatData+`</p>
+    </div>`
+}
+
+function generateHtml(){
+    let starterFile = `<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Team Document</title>
+    </head>
+    <body style="display:flex; align-items:center; flex-direction:column; margin:0px;">
+        <section style="display: flex; justify-content:center; background-color: lightcoral; width:100%;">
+            <h1 style="color: white;">My Team</h1>
+        </section>
+    
+        <section style="display: flex; flex-wrap:wrap; justify-content: center; align-items: center; margin: 10px; width:50%;">
+            `<div style="display:flex; flex-direction:column; width: 120px; height: 25%; margin:20px; box-shadow: 1px 1px 3px black;">
+                <div style="position:relative; background-color: lightsteelblue; height:80px;">
+                    <h3 style="margin:10px; margin-left: 15px; max-width: 90px;">John</h3>
+                    <h4 style="margin:10px; margin-left: 25px; max-width: 70px;">Manager</h4>
+                </div>
+                <p style="margin:4px; font-size: small; font-weight: bold;">ID:</p>
+                <p style="margin:4px; font-size: small; max-width: 120px;">1</p>
+                <p style="margin:4px; font-size: small; font-weight: bold;">Email:</p>
+                <p style="margin:4px; font-size: small; max-width: 120px;">John@email.com</p>
+                <p style="margin:4px; font-size: small; font-weight: bold;">Office Number:</p>
+                <p style="margin:4px; font-size: small; max-width: 120px;">3</p>
+            </div>`
+        </section>
+        
+    </body>
+    </html>`
+}
+
 async function main(){
     await addManager();
 
